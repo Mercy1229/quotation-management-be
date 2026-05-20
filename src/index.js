@@ -145,8 +145,8 @@ app.post('/api/generate-pdf', async (req, res, next) => {
     const page = await browser.newPage();
 
     await page.setViewport({
-      width: 1440,
-      height: 2200,
+      width: 794,
+      height: 1123,
       deviceScaleFactor: 1
     });
 
@@ -159,12 +159,7 @@ app.post('/api/generate-pdf', async (req, res, next) => {
         format: 'A4',
         printBackground: true,
         preferCSSPageSize: true,
-        margin: {
-          top: '12mm',
-          right: '10mm',
-          bottom: '12mm',
-          left: '10mm'
-        }
+        margin: { top: 0, right: 0, bottom: 0, left: 0 }
       })
     );
 

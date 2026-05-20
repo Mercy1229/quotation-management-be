@@ -8,7 +8,7 @@
   <style>
   :root {
     --primary: #a10018;
-    /* --primary-light: rgba(161, 0, 24, 0.12); */
+    --primary-light: rgba(161, 0, 24, 0.12);
     --white: #ffffff;
     --text-light: rgba(255, 255, 255, 0.82);
   }
@@ -18,12 +18,18 @@
   }
 
   body {
-    margin: 0;
-    /* background: #111; */
-    /* font-family: "Poppins", sans-serif; */
+    margin: 10px;
+    background: #fff;
+    font-family: "Inter", sans-serif;
   }
   .event-section {
-  margin-top: 28px;
+  margin-top: 22px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
 }
 
 .event-badge {
@@ -35,62 +41,111 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-
-  /* Add this */
   border-radius: 20%;
+  margin: 0 auto 16px;
 }
 
 .event-label {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
   color: #17253a;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .event-number {
   font-size: 44px;
   font-weight: 700;
   color: #1f2328;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .event-details-table,
-.services-table {
+.services-table,
+.client-table,
+.deliverables-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
 }
 
 .event-details-table td,
 .services-table th,
-.services-table td {
-  border: 1px solid #3d3d3d;
-  padding: 12px 10px;
-  font-size: 15px;
+.services-table td,
+.client-table td,
+.deliverables-table th,
+.deliverables-table td {
+  border-bottom: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+  padding: 13px 18px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
+/* Remove right border on last column */
+.event-details-table td:last-child,
+.services-table th:last-child,
+.services-table td:last-child,
+.client-table td:last-child,
+.deliverables-table th:last-child,
+.deliverables-table td:last-child {
+  border-right: none;
+}
+
+/* Remove bottom border on last row */
+.event-details-table tr:last-child td,
+.services-table tbody tr:last-child td,
+.client-table tr:last-child td,
+.deliverables-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Label / header cells */
 .event-details-table .label,
-.services-table th {
+.services-table th,
+.client-table td:first-child,
+.deliverables-table th {
   background: #a10018;
   color: white;
   font-weight: 700;
+  width: 35%;
+  letter-spacing: 0.3px;
 }
 
+/* Value cells */
 .event-details-table .value,
-.services-table td {
-  background: #f4f4f4;
-  color: #7d8288;
-  font-weight: 600;
+.services-table td,
+.client-table td:last-child,
+.deliverables-table td {
+  background: #fafafa;
+  color: #444;
+  font-weight: 500;
 }
 
-.services-table th {
+/* Alternating row shading for value rows */
+.services-table tbody tr:nth-child(even) td,
+.deliverables-table tbody tr:nth-child(even) td {
+  background: #f4f4f4;
+}
+
+.services-table th,
+.deliverables-table th {
   text-align: left;
+}
+
+.client-table td:first-child {
+  width: 35%;
 }
 
 .services-table td:first-child,
 .services-table td:last-child {
-  width: 120px;
+  width: 70px;
+  text-align: center;
 }
   /* Allow services grid to break across pages */
 .services-grid {
@@ -104,9 +159,20 @@
 
 /* Let the services page grow naturally instead of being clipped */
 .services-design-page {
-  min-height: unset;
-  height: auto;
+  min-height: unset !important;
+  height: auto !important;
+  overflow: visible !important;
+  page-break-inside: auto !important;
+  break-inside: auto !important;
   page-break-after: always;
+  break-after: page;
+}
+
+/* Each event block stays together but allows page breaks between events */
+.event-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  overflow: visible;
 }
 
   .cover {
@@ -263,7 +329,56 @@
     max-width: 680px;
     color: var(--text-light);
   }
+.package-details-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 14px;
+  margin-bottom: 12px;
+}
 
+.package-box,
+.validity-box {
+  flex: 1;
+  border: 1.5px solid #a10018;
+  border-radius: 12px;
+  padding: 14px 18px;
+  min-height: 90px;
+  box-shadow: 0 4px 14px rgba(161, 0, 24, 0.08);
+}
+
+.package-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.total-row {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.validity-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.validity-title {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.validity-date {
+  font-size: 18px;
+  font-weight: 700;
+  color: #444;
+}
   @page {
     size: A4;
     margin: 0;
@@ -293,9 +408,24 @@
       overflow: hidden;
     }
 
+    /* Services page must grow and allow page breaks */
+    .services-design-page {
+      min-height: unset !important;
+      height: auto !important;
+      overflow: visible !important;
+      page-break-inside: auto !important;
+      break-inside: auto !important;
+    }
+
     .final-thankyou-page {
       page-break-after: auto;
       break-after: auto;
+    }
+
+    /* Ensure no trailing blank page after last element */
+    body > *:last-child {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
     }
 
     img {
@@ -307,16 +437,19 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .service-card,
-    .client-details-card,
-    .story-hero-image,
-    .quotation-badge,
-    .final-logo-circle,
-    .client-table,
-    .client-table tr,
-    .client-table td {
-      page-break-inside: avoid;
-      break-inside: avoid;
+    .wedding-story-page {
+      padding-bottom: 0;
+    }
+
+    .wedding-story-page .story-hero,
+    .wedding-story-page .story-hero-image {
+      margin-bottom: 0;
+    }
+
+    .wedding-story-page .hero-content,
+    .wedding-story-page .hero-content * {
+      background: transparent !important;
+      box-shadow: none !important;
     }
 
     .client-table {
@@ -340,12 +473,12 @@
   .page{
     width:100%;
     min-height:100vh;
-    padding:60px;
+    padding:30px 60px 60px;
     background:#fff;
     position:relative;
     overflow:hidden;
     page-break-after:always;
-    font-family:'Poppins',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   /* =========================================
@@ -371,7 +504,7 @@
     font-size:54px;
     line-height:1.15;
     margin:0;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
     font-weight:800;
     color:#111;
   }
@@ -384,11 +517,14 @@
   }
 
   .story-hero{
-    margin-top:50px;
+    margin-top:24px;
+    margin-bottom:0;
   }
 
   .story-hero-image{
-    height:480px;
+    width:100%;
+    min-height:460px;
+    height:62vh;
     border-radius:34px;
     position:relative;
     overflow:hidden;
@@ -414,6 +550,15 @@
     bottom:60px;
     max-width:650px;
     color:#fff;
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+    padding:0;
+    z-index:2;
+  }
+
+  .hero-content * {
+    background:transparent !important;
   }
 
   .hero-mini-title{
@@ -427,7 +572,7 @@
     font-size:54px;
     line-height:1.1;
     margin:18px 0;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
     font-weight:800;
   }
 
@@ -472,7 +617,7 @@
   .ritual-card h4{
     font-size:28px;
     margin:0 0 14px;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   .ritual-card p{
@@ -576,7 +721,7 @@
   .service-card h3{
     margin:0 0 14px;
     font-size:28px;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   .service-card p{
@@ -603,7 +748,7 @@
   .highlight-left h3{
     font-size:42px;
     margin:0 0 20px;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   .highlight-left p{
@@ -633,8 +778,8 @@
   ========================================= */
 
   .client-section{
-    margin-top:70px;
-    padding:40px 0;
+    margin-top:0;
+    padding:0;
   }
 
   /* =========================================
@@ -643,7 +788,7 @@
 
   .client-header{
     text-align:center;
-    margin-bottom:40px;
+    margin-bottom:18px;
   }
 
   .client-mini-title{
@@ -655,9 +800,9 @@
   }
 
   .client-header h2{
-    margin:18px 0 12px;
+    margin:6px 0 6px;
     font-size:48px;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
     font-weight:800;
     color:#111;
   }
@@ -676,55 +821,20 @@
 
   .client-details-card{
     background:#fff;
-    border-radius:30px;
-    padding:35px;
-    border:1px solid rgba(0,0,0,0.06);
-
-    box-shadow:
-      0 18px 50px rgba(0,0,0,0.06);
+    border-radius:16px;
+    padding:20px;
+    border:1.5px solid #e8e8e8;
+    overflow:hidden;
+    box-shadow:0 6px 24px rgba(0,0,0,0.06);
   }
 
   /* =========================================
      TABLE
   ========================================= */
 
-  .client-table{
-    width:100%;
-    border-collapse:collapse;
-    overflow:hidden;
-    border-radius:20px;
-  }
-
-  .client-table tr{
-    transition:0.3s;
-  }
-
-  .client-table tr:nth-child(odd){
-    background:rgba(161,0,24,0.03);
-  }
-
-  .client-table tr:hover{
-    background:rgba(161,0,24,0.06);
-  }
-
-  .client-table td{
-    padding:22px 26px;
-    border:1px solid rgba(0,0,0,0.08);
-  }
-
-  .client-table td:first-child{
-    width:35%;
-    font-size:15px;
-    font-weight:700;
-    letter-spacing:0.5px;
-    color:#777;
-    background:rgba(161,0,24,0.04);
-  }
-
-  .client-table td:last-child{
-    font-size:17px;
-    font-weight:600;
-    color:#222;
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
   }
 
   /* =========================================
@@ -733,12 +843,49 @@
 
   @media(max-width:768px){
 
+    .page{
+      padding:20px 16px 28px;
+    }
+
+    .story-header{
+      margin:0 auto 20px;
+    }
+
+    .story-hero{
+      margin-top:16px;
+      margin-bottom:0;
+    }
+
+    .story-hero-image{
+      min-height:300px;
+      height:56vh;
+      border-radius:20px;
+    }
+
+    .hero-content{
+      left:18px;
+      right:18px;
+      bottom:18px;
+      max-width:none;
+    }
+
+    .hero-content h3{
+      font-size:34px;
+      margin:10px 0;
+    }
+
+    .hero-content p{
+      font-size:14px;
+      line-height:1.6;
+      margin:0;
+    }
+
     .client-header h2{
       font-size:34px;
     }
 
     .client-table td{
-      padding:16px;
+      padding:13px 18px;
       font-size:14px;
     }
 
@@ -801,7 +948,7 @@
       );
     min-height:100vh;
     padding:70px 70px 50px;
-    font-family:'Poppins',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   /* =========================================
@@ -921,7 +1068,7 @@
     margin:0;
     font-size:92px;
     line-height:1;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
     font-weight:800;
     letter-spacing:-3px;
     color:#111;
@@ -1031,7 +1178,7 @@
     color:#fff;
     font-size:24px;
     font-weight:700;
-    font-family:'Montserrat',sans-serif;
+    font-family:'Inter',sans-serif;
   }
 
   .partner-name{
@@ -1040,10 +1187,6 @@
     color:#333;
     font-weight:500;
   }
-
-  /* =========================================
-     FOOTER
-  ========================================= */
 
   .final-footer{
     position:relative;
@@ -1079,7 +1222,44 @@
     color:var(--primary);
     font-weight:600;
   }
-   
+   .deliverables-section {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+.deliverables-title {
+  text-align: center;
+  color: #a10018;
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.quotation-note {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.7;
+  text-align: left;
+  margin: 8px 0 0;
+  font-style: normal;
+}
+
+.quotation-note-title {
+  color: #a10018;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.quotation-note-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.quotation-note-list li {
+  margin-bottom: 6px;
+}
   </style>
 </head>
 <body>
@@ -1314,7 +1494,7 @@
 <div class="page client-section">
 
   <div class="client-header">
-    <span class="client-mini-title">Wedding Details</span>
+    <span class="client-mini-title">Event Details</span>
 
     <h2>
       Client Information
@@ -1370,8 +1550,6 @@
     </table>
 
   </div>
-
-</div>
 <% if (data.events && data.events.length) { %>
   <% data.events.forEach((event, index) => { %>
 
@@ -1385,37 +1563,39 @@
 
       <!-- Event Details Table -->
       <table class="event-details-table">
+        <colgroup>
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+        </colgroup>
         <tbody>
 
           <tr>
             <td class="label">Event Name</td>
-            <td class="value"><%= event.eventName || "-" %></td>
-
-            <td class="label">Date</td>
-            <td class="value"><%= event.date || "-" %></td>
+            <td class="value" colspan="3"><%= event.eventName || "-" %></td>
           </tr>
-
+          <tr>
+            <td class="label">Date</td>
+            <td class="value" colspan="3"><%= event.date || "-" %></td>
+          </tr>
           <tr>
             <td class="label">Venue Name</td>
-            <td class="value"><%= event.venueName || "-" %></td>
-
-            <td class="label">Crowd Strength</td>
-            <td class="value"><%= event.crowdStrength || "-" %></td>
+            <td class="value" colspan="3"><%= event.venueName || "-" %></td>
           </tr>
-
           <tr>
             <td class="label">Venue Location</td>
-            <td class="value"><%= event.venueLocation || "-" %></td>
-
+            <td class="value" colspan="3"><%= event.venueLocation || "-" %></td>
+          </tr>
+          <tr>
+            <td class="label">Crowd Strength</td>
+            <td class="value" colspan="3"><%= event.crowdStrength || "-" %></td>
+          </tr>
+          <tr>
             <td class="label">Start Time</td>
             <td class="value"><%= event.startTime || "-" %></td>
-          </tr>
-
-          <tr>
-            <td class="label">Services</td>
-            <td class="value" colspan="3">
-              <%= event.endTime || "-" %>
-            </td>
+            <td class="label">End Time</td>
+            <td class="value"><%= event.endTime || "-" %></td>
           </tr>
 
         </tbody>
@@ -1448,6 +1628,106 @@
 
   <% }) %>
 <% } %>
+<% if (
+  (data.photoDeliverables && data.photoDeliverables.length > 0) ||
+  (data.videoDeliverables && data.videoDeliverables.length > 0)
+) { %>
+
+<div class="deliverables-section">
+
+  <h2 class="deliverables-title">DELIVERABLES</h2>
+
+  <!-- PHOTO DELIVERABLES -->
+  <% if (data.photoDeliverables && data.photoDeliverables.length > 0) { %>
+    <table class="deliverables-table">
+      <thead>
+        <tr>
+          <th>Photo Deliverables</th>         
+          <th>Event Name</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% data.photoDeliverables.forEach((item) => { %>
+          <tr>
+            <td><%= item.name || "-" %></td>
+            <td><%= item.eventName || "-" %></td>
+            <td><%= item.qty || "-" %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <!-- VIDEO DELIVERABLES -->
+  <% if (data.videoDeliverables && data.videoDeliverables.length > 0) { %>
+    <table class="deliverables-table" style="margin-top: 30px;">
+      <thead>
+        <tr>
+          <th>Video Deliverables</th>
+          <th>Event Name</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% data.videoDeliverables.forEach((item) => { %>
+          <tr>
+            <td><%= item.name || "-" %></td>
+            <td><%= item.eventName || "-" %></td>
+            <td><%= item.qty || "-" %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+
+</div>
+
+<% } %>
+<div class="package-details-section">
+  <div class="package-box">
+    <div class="package-row">
+      <span>TOTAL PACKAGE</span>
+      <span><%= data.totalPackage || 0 %> INR</span>
+    </div>
+
+    <div class="package-row">
+      <span>DISCOUNT</span>
+      <span><%= data.discount || 0 %> INR</span>
+    </div>
+
+    <div class="package-row total-row">
+      <span>PACKAGE VALUE</span>
+      <span><%= data.total || 0 %> INR</span>
+    </div>
+  </div>
+
+  <div class="validity-box">
+    <div class="validity-title">
+      This Quote Is Valid Until
+    </div>
+
+    <div class="validity-date">
+      <%= data.quoteValidUntil || "--" %>
+    </div>
+  </div>
+</div>
+
+  <div class="quotation-note">
+    <div class="quotation-note-title">Note:</div>
+    <ul class="quotation-note-list">
+      <li>50% of the total package is to be paid as advance</li>
+      <li>The quotations given are for the specified events</li>
+      <li>Incase of any additional events, the coverage cost may differ</li>
+      <li>Travel, food and accomodation should be taken care by the client</li>
+    </ul>
+  </div>
+</div>
+
+
+
   <!-- ═══════════════════════════════════
        THANK YOU / FOOTER
   ════════════════════════════════════ -->
