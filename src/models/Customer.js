@@ -99,6 +99,11 @@ const customerSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+  discount_percentage: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   total: {
     type: Number,
     required: true,
