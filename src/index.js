@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs';
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 
 import connectDB from './config/database.js';
 import customerRoutes from './routes/customer.js';
@@ -21,18 +21,6 @@ const PORT = process.env.PORT || 5000;
 /*                               Browser Path                                 */
 /* -------------------------------------------------------------------------- */
 
-function resolveBrowserExecutablePath() {
-  const candidates = [
-    process.env.BROWSER_PATH,
-    process.env.CHROME_PATH,
-    'C:/Program Files/Google/Chrome/Application/chrome.exe',
-    'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
-    'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
-    'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
-  ].filter(Boolean);
-
-  return candidates.find((candidate) => fs.existsSync(candidate));
-}
 
 async function renderQuotationHtml(req, payload) {
   const templatePath = path.join(__dirname, './template/quotationtemplate.ejs');
@@ -124,15 +112,6 @@ app.post('/api/generate-pdf', async (req, res, next) => {
 
   try {
     const payload = req.body?.data || req.body || {};
-
-    const executablePath = resolveBrowserExecutablePath();
-
-    if (!executablePath) {
-      return res.status(500).json({
-        error:
-          'Chrome/Edge executable not found. Set CHROME_PATH or BROWSER_PATH in environment.'
-      });
-    }
 
     const html = await renderQuotationHtml(req, payload);
 
