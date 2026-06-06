@@ -2,11 +2,11 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 
 import connectDB from './config/database.js';
 import customerRoutes from './routes/customer.js';
@@ -114,23 +114,17 @@ app.post('/api/generate-pdf', async (req, res, next) => {
     const payload = req.body?.data || req.body || {};
 
     const html = await renderQuotationHtml(req, payload);
-    
-  const chromePath = await puppeteer.executablePath();
-    console.log("Puppeteer package:", puppeteer);
-console.log("Puppeteer executable path:", await puppeteer.executablePath?.());
 
-console.log("Chrome Path:", chromePath);
-console.log("Chrome Exists:", fs.existsSync(chromePath));
+    console.log(
+      'Chromium Path:',
+      await chromium.executablePath()
+    );
 
-browser = await puppeteer.launch({
-  executablePath: chromePath,
-  headless: true,
-  args: [
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
-    '--disable-dev-shm-usage'
-  ]
-});
+    browser = await puppeteer.launch({
+      executablePath: await chromium.executablePath(),
+      args: chromium.args,
+      headless: true
+    });
 
     const page = await browser.newPage();
 
@@ -144,25 +138,34 @@ browser = await puppeteer.launch({
       waitUntil: 'networkidle0'
     });
 
-    const pdfBuffer = Buffer.from(
-      await page.pdf({
-        format: 'A4',
-        printBackground: true,
-        preferCSSPageSize: true,
-        margin: { top: 0, right: 0, bottom: 0, left: 0 }
-      })
-    );
-
-    res.writeHead(200, {
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="quotation.pdf"',
-      'Content-Length': pdfBuffer.length
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      preferCSSPageSize: true,
+      margin: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      }
     });
 
-    res.end(pdfBuffer);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename="quotation.pdf"'
+    );
+
+    res.send(pdfBuffer);
   } catch (error) {
-    console.error('PDF Generation Error:', error);
-    next(error);
+    console.error('================ PDF ERROR ================');
+    console.error(error);
+    console.error(error?.stack);
+    console.error('===========================================');
+
+    res.status(500).json({
+      error: error.message
+    });
   } finally {
     if (browser) {
       await browser.close();
