@@ -136,11 +136,14 @@ app.post('/api/generate-pdf', async (req, res, next) => {
 
     const html = await renderQuotationHtml(req, payload);
 
-    browser = await puppeteer.launch({
-      executablePath,
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    const browser = await puppeteer.launch({
+  headless: true,
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage'
+  ]
+});
 
     const page = await browser.newPage();
 
