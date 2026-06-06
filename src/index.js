@@ -114,7 +114,8 @@ app.post('/api/generate-pdf', async (req, res, next) => {
     const payload = req.body?.data || req.body || {};
 
     const html = await renderQuotationHtml(req, payload);
-console.log('Chrome Path:', puppeteer.executablePath());
+    console.log("Puppeteer package:", puppeteer);
+console.log("Puppeteer executable path:", await puppeteer.executablePath?.());
    browser = await puppeteer.launch({
   executablePath: puppeteer.executablePath(),
   headless: true,
