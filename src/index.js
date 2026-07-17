@@ -17,10 +17,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-/* -------------------------------------------------------------------------- */
-/*                               Browser Path                                 */
-/* -------------------------------------------------------------------------- */
-
 
 async function renderQuotationHtml(req, payload) {
   const rawTemplateId = req.body?.templateId ?? payload?.templateId;
