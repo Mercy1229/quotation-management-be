@@ -3,16 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sales Quotation</title>
+  <title>Sales Quotation – Sunitha & Arjun</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    @font-face {
-  font-family: "Tamil MN";
-  src: url("./fonts/TamilMN.woff2") format("woff2"),
-       url("./fonts/TamilMN.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
   :root {
     --primary: #a10018;
     --primary-light: rgba(161, 0, 24, 0.12);
@@ -40,8 +33,8 @@
 }
 
 .event-badge {
-  width: 120px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   background-color: white;
   border: 4px solid #a10018;
   display: flex;
@@ -188,12 +181,12 @@
     min-height: 100vh;
     overflow: hidden;
     background:
-      /* linear-gradient(
+      linear-gradient(
         135deg,
         rgba(0, 0, 0, 0.72),
         rgba(161, 0, 24, 0.65)
-      ), */
-      url("<%= baseUrl %>/uploads/image1.jpg")
+      ),
+      url("<%= baseUrl %>/uploads/image1.jpeg")
       center/cover no-repeat;
     color: var(--white);
     padding: 50px 70px;
@@ -203,13 +196,9 @@
     position: absolute;
     inset: 0;
     background:
-  radial-gradient(
-    ellipse 120% 60% at top center,
-    rgba(161, 0, 24, 0.45) 0%,
-    rgba(161, 0, 24, 0.25) 35%,
-    transparent 80%
-  );
- z-index: 1;
+      radial-gradient(circle at top right, rgba(161, 0, 24, 0.45), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(161, 0, 24, 0.25), transparent 35%);
+    z-index: 1;
   }
 
   .cover-header {
@@ -239,7 +228,6 @@
 
   .brand-text {
     display: flex;
-    font-family: "Tamil MN", serif;
     flex-direction: column;
   }
 
@@ -262,7 +250,7 @@
   .quotation-badge {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(8px);
     padding: 18px 26px;
     border-radius: 18px;
     display: flex;
@@ -290,12 +278,11 @@
     z-index: 2;
     display: flex;
     align-items: center;
-    min-height: 89vh;
+    min-height: 78vh;
   }
 
   .cover-content-box {
     max-width: 760px;
-    margin-top: 300px;
   }
 
   .proposal-by {
@@ -326,8 +313,8 @@
 
   .cover-content-box h1 {
     font-family: "Montserrat", sans-serif;
-    font-size: 67px;
-    line-height: 1;
+    font-size: 82px;
+    line-height: 1.05;
     margin: 0;
     font-weight: 800;
     letter-spacing: -2px;
@@ -337,8 +324,8 @@
 
   .cover-description {
     margin-top: 28px;
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 19px;
+    line-height: 1.9;
     max-width: 680px;
     color: var(--text-light);
   }
@@ -501,8 +488,8 @@
     }
 
     .wedding-story-page .story-header h2 {
-      font-size: 28px;
-      line-height: 1.8;
+      font-size: 42px;
+      line-height: 1.12;
     }
 
     .wedding-story-page .story-header p {
@@ -546,7 +533,7 @@
     }
 
     .services-design-page .services-page-header {
-      margin: 0 auto;
+      margin: 0 auto 14px;
       max-width: 100%;
     }
 
@@ -587,7 +574,7 @@
     }
 
     .services-design-page .service-number {
-      font-size: 10px;
+      font-size: 12px;
       padding-top: 10px;
     }
 
@@ -596,7 +583,7 @@
     }
 
     .services-design-page .service-content h3 {
-      font-size: 10px;
+      font-size: 14px;
       margin: 0 0 2px;
       line-height: 1.3;
     }
@@ -663,7 +650,7 @@
     }
 
     .signature-content h3 {
-      font-size: 12px;
+      font-size: 24px;
     }
 
     .signature-content p {
@@ -770,7 +757,8 @@
   }
 
   .story-header h2{
-    font-size:30px;
+    font-size:54px;
+    line-height:1.15;
     margin:0;
     font-family:'Inter',sans-serif;
     font-weight:800;
@@ -798,8 +786,8 @@
     overflow:hidden;
     background:
       linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.45)),
-      url("<%= baseUrl %>/uploads/image2.jpg")
-      left/cover no-repeat;
+      url("<%= baseUrl %>/uploads/image2.jpeg")
+      center/cover no-repeat;
   }
 
   .hero-image-overlay{
@@ -930,7 +918,7 @@
   .services-page-header{
     text-align:center;
     max-width:820px;
-    margin:0 auto;
+    margin:0 auto 70px;
   }
 
   .services-mini{
@@ -958,22 +946,17 @@
     margin:0;
     padding:0;
     list-style:none;
-      border:1.5px solid rgba(161, 0, 24, 0.28);
+    border:1.5px solid #ead3d7;
     border-radius:18px;
     overflow:hidden;
-      background:linear-gradient(135deg, rgba(161, 0, 24, 0.1), rgba(161, 0, 24, 0.03));
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+    background:#fff;
   }
 
   .service-list-item{
     display:grid;
     grid-template-columns:72px 1fr;
     gap:0;
-      border-bottom:1px solid rgba(161, 0, 24, 0.2);
-      background:rgba(223, 220, 220, 0.5);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    border-bottom:1px solid #eee;
   }
 
   .service-list-item:last-child{
@@ -993,22 +976,13 @@
 
   .service-content{
     padding:18px 22px;
-    background:#7f0014;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
   }
 
   .service-content h3{
     margin:0 0 6px;
-    font-size:12px;
+    font-size:22px;
     font-family:'Inter',sans-serif;
-    color:#d6d3d3;
-    white-space:nowrap;
-  }
-
-  /* If the number block is removed, let content use the full row width */
-  .service-list-item > .service-content:only-child{
-    grid-column:1 / -1;
+    color:#1e1e1e;
   }
 
   .service-content p{
@@ -1182,11 +1156,11 @@
     }
 
     .service-content h3{
-      font-size:12px;
+      font-size:18px;
     }
 
     .service-content p{
-      font-size:10px;
+      font-size:13px;
       line-height:1.55;
     }
 
@@ -1425,7 +1399,7 @@
 
   .signature-content h3{
     margin:0;
-    font-size:20px;
+    font-size:36px;
     font-family:'Montserrat',sans-serif;
     color:#111;
   }
@@ -1580,29 +1554,6 @@
 .quotation-note-list li {
   margin-bottom: 6px;
 }
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; /* Center horizontally */
-  text-align: center;
-}
-
-.brand-text h2 {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.1;
-  color: #a30116;
-}
-
-.brand-text p {
-  margin: 4px 0 0;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #ffffff;
-}
 @media (max-width: 768px) {
 
   body {
@@ -1625,20 +1576,19 @@
   }
 
   .cover-content {
-    min-height: 280px;
+    min-height: auto;
     padding: 40px 0;
   }
 
   .cover-content-box h1 {
-    font-size: 30px;
-    line-height: 1;
+    font-size: 42px;
+    line-height: 1.2;
     letter-spacing: 0;
   }
 
   .cover-description {
-    font-size: 12px;
-    line-height: 1.5;
-    font-style:italic
+    font-size: 15px;
+    line-height: 1.7;
   }
 
   .brand-text h2 {
@@ -1652,7 +1602,7 @@
   .story-header h2,
   .services-page-header h2,
   .client-header h2 {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .story-header p,
@@ -1696,10 +1646,9 @@
   .event-details-table,
   .services-table,
   .deliverables-table {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    white-space: normal;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .event-details-table td,
@@ -1709,55 +1658,12 @@
   .deliverables-table th,
   .client-table td {
     padding: 10px;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    vertical-align: top;
-  }
-
-  .event-details-table td.label,
-  .client-table td:first-child {
-    width: 36%;
-  }
-
-  .services-table th:nth-child(1),
-  .services-table td:nth-child(1) {
-    width: 12%;
-    text-align: center;
-  }
-
-  .services-table th:nth-child(2),
-  .services-table td:nth-child(2) {
-    width: 58%;
-  }
-
-  .services-table th:nth-child(3),
-  .services-table td:nth-child(3) {
-    width: 30%;
-    text-align: center;
-  }
-
-  .deliverables-table th:nth-child(1),
-  .deliverables-table td:nth-child(1) {
-    width: 46%;
-  }
-
-  .deliverables-table th:nth-child(2),
-  .deliverables-table td:nth-child(2) {
-    width: 34%;
-  }
-
-  .deliverables-table th:nth-child(3),
-  .deliverables-table td:nth-child(3) {
-    width: 20%;
-    text-align: center;
+    font-size: 13px;
   }
 
   .event-badge {
-    width: 100px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
 
   .event-number {
@@ -1794,7 +1700,7 @@
   }
 
   .signature-content h3 {
-    font-size: 12px;
+    font-size: 24px;
   }
 
   .partners-grid {
@@ -1842,8 +1748,7 @@
         </div>
         -->
         <div class="brand-text">
-          <h2>JORUVST</h2>
-          <p>Photography & Films</p>
+          <h2>ACV Flims</h2>
         </div>
     </div>
 
@@ -1855,13 +1760,22 @@
   <!-- Hero Content -->
   <div class="cover-content">
     <div class="cover-content-box">
+     
+
+   
+
+      <div class="divider"></div>
 
       <h1>
         Your Beautiful <br />
         Forever Begins Here
       </h1>
 
-     
+      <p class="cover-description">
+        Capturing timeless emotions, heartfelt moments, elegant celebrations,
+        and unforgettable memories with artistic storytelling and cinematic
+        perfection tailored exclusively for your special day.
+      </p>
     </div>
   </div>
 </div>
@@ -1871,19 +1785,20 @@
  <!-- ═══════════════════════════════════
      PAGE 2 — WEDDING STORY / EXPERIENCE
 ════════════════════════════════════ -->
-<div style="margin-top: 15px;">
+<div class="page wedding-story-page">
 
   <div class="story-header">
-    <div class="story-eyebrow"> Sacred Moments</div>
+    <div class="story-eyebrow">Wedding Experience</div>
     <h2>
-     United by Love
+      A Celebration Rooted In <br>
+      Culture, Rituals & Timeless Love
     </h2>
 
     <p>
-      <!-- A wedding is not just a ceremony — it is an emotional
+      A wedding is not just a ceremony — it is an emotional
       journey filled with sacred rituals, vibrant celebrations, blessings,
       family traditions, and unforgettable moments that deserve to be captured
-      beautifully for generations to cherish. -->
+      beautifully for generations to cherish.
     </p>
   </div>
 
@@ -1894,18 +1809,18 @@
       <div class="hero-image-overlay"></div>
 
       <div class="hero-content">
-        <!-- <span class="hero-mini-title">Sacred Moments</span> -->
+        <span class="hero-mini-title">Sacred Moments</span>
 
-        <!-- <h3>
+        <h3>
           From The First Blessing <br>
           To The Final Ritual
-        </h3> -->
+        </h3>
 
-        <!-- <p>
+        <p>
           Every smile, every ritual, every emotional glance and every sacred
           promise becomes a timeless memory through our cinematic storytelling
           and artistic wedding photography experience.
-        </p> -->
+        </p>
       </div>
     </div>
 
@@ -1925,96 +1840,96 @@
 
     <h2>Our Signature Services</h2>
 
-    <!-- <p>
+    <p>
       Curated cinematic photography and wedding filmmaking services designed to
       transform your once-in-a-lifetime moments into timeless visual memories.
-    </p> -->
+    </p>
   </div>
 
   <!-- SERVICES LIST -->
   <ol class="services-list">
     <li class="service-list-item">
-      <!-- <div class="service-number">01</div> -->
+      <div class="service-number">01</div>
       <div class="service-content">
         <h3>Candid Photography</h3>
-        <!-- <p>Emotion-driven storytelling through natural and timeless candid wedding frames.</p> -->
+        <p>Emotion-driven storytelling through natural and timeless candid wedding frames.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">02</div> -->
+      <div class="service-number">02</div>
       <div class="service-content">
         <h3>Cinematic Videography</h3>
-        <!-- <p>Premium wedding films crafted with cinematic visuals, music and emotional storytelling.</p> -->
+        <p>Premium wedding films crafted with cinematic visuals, music and emotional storytelling.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">03</div> -->
+      <div class="service-number">03</div>
       <div class="service-content">
         <h3>Traditional Coverage</h3>
-        <!-- <p>Complete traditional photography and videography coverage for rituals and ceremonies.</p> -->
+        <p>Complete traditional photography and videography coverage for rituals and ceremonies.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">04</div> -->
+      <div class="service-number">04</div>
       <div class="service-content">
         <h3>Drone / Helicam</h3>
-        <!-- <p>Stunning aerial wedding visuals and cinematic venue coverage with premium drone shots.</p> -->
+        <p>Stunning aerial wedding visuals and cinematic venue coverage with premium drone shots.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">05</div> -->
+      <div class="service-number">05</div>
       <div class="service-content">
         <h3>Live Streaming</h3>
-        <!-- <p>Seamless high-quality wedding live streaming experience for friends and family worldwide.</p> -->
+        <p>Seamless high-quality wedding live streaming experience for friends and family worldwide.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">06</div> -->
+      <div class="service-number">06</div>
       <div class="service-content">
         <h3>Wedding Film</h3>
-        <!-- <p>Emotional cinematic wedding edits crafted with storytelling, music and artistic visuals.</p> -->
+        <p>Emotional cinematic wedding edits crafted with storytelling, music and artistic visuals.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">07</div> --> 
+      <div class="service-number">07</div>
       <div class="service-content">
         <h3>Pre-Wedding Shoot</h3>
-        <!-- <p>Romantic cinematic pre-wedding storytelling with creative concepts, beautiful locations and elegant couple portraits.</p> -->
+        <p>Romantic cinematic pre-wedding storytelling with creative concepts, beautiful locations and elegant couple portraits.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">08</div> -->
+      <div class="service-number">08</div>
       <div class="service-content">
         <h3>Post-Wedding Shoot</h3>
-        <!-- <p>Timeless post-wedding photography sessions crafted with cinematic visuals, emotional storytelling and artistic direction.</p> -->
+        <p>Timeless post-wedding photography sessions crafted with cinematic visuals, emotional storytelling and artistic direction.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">09</div> -->
+      <div class="service-number">09</div>
       <div class="service-content">
         <h3>Indoor Studio Shoot</h3>
-        <!-- <p>Premium indoor photography sessions with professional lighting, elegant backdrops and creative portrait styling.</p> -->
+        <p>Premium indoor photography sessions with professional lighting, elegant backdrops and creative portrait styling.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">10</div> -->
+      <div class="service-number">10</div>
       <div class="service-content">
         <h3>Outdoor Shoot</h3>
-        <!-- <p>Natural outdoor photography experiences capturing candid emotions, beautiful landscapes and authentic moments.</p> -->
+        <p>Natural outdoor photography experiences capturing candid emotions, beautiful landscapes and authentic moments.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">11</div> -->
+      <div class="service-number">11</div>
       <div class="service-content">
         <h3>Toddler Photography</h3>
-        <!-- <p>Adorable toddler photography sessions filled with playful moments, joyful expressions and heartwarming memories.</p> -->
+        <p>Adorable toddler photography sessions filled with playful moments, joyful expressions and heartwarming memories.</p>
       </div>
     </li>
     <li class="service-list-item">
-      <!-- <div class="service-number">12</div> -->
+      <div class="service-number">12</div>
       <div class="service-content">
         <h3>Maternity Shoot</h3>
-        <!-- <p>Elegant maternity portraits celebrating motherhood with artistic styling, emotional storytelling and timeless elegance.</p> -->
+        <p>Elegant maternity portraits celebrating motherhood with artistic styling, emotional storytelling and timeless elegance.</p>
       </div>
     </li>
   </ol>
@@ -2023,20 +1938,19 @@
 <!-- ═══════════════════════════════════
      CLIENT DETAILS SECTION
 ════════════════════════════════════ -->
-<div class=" client-section">
+<div class="page client-section">
 
-  <div class="client-header" style="margin-top: 10px;">
+  <div class="client-header">
+    <span class="client-mini-title">Event Details</span>
+
     <h2>
-      Event Details
+      Client Information
     </h2>
-   
-<p>
+
+    <p>
       Personalized quotation details prepared exclusively for your wedding
       celebration and memorable events.
     </p>
-     <span class="client-mini-title">Client Information</span>
-
-    
   </div>
 
   <div class="client-details-card">
@@ -2090,8 +2004,8 @@
 
       <!-- Event Number Box -->
       <div class="event-badge">
-        <span class="event-label">EVENT - <%= index + 1 %></span>
-        <!-- <span class="event-number"><%= index + 1 %></span> -->
+        <span class="event-label">EVENT</span>
+        <span class="event-number"><%= index + 1 %></span>
       </div>
 
       <!-- Event Details Table -->
@@ -2162,7 +2076,7 @@
   <% }) %>
 <% } %>
 <% if (data.photoDeliverables && data.photoDeliverables.length > 0) { %>
-<div class="">
+<div class="page">
   <div class="deliverables-section">
     <h2 class="deliverables-title">PHOTO DELIVERABLES</h2>
     <table class="deliverables-table">
@@ -2188,7 +2102,7 @@
 <% } %>
 
 <% if (data.videoDeliverables && data.videoDeliverables.length > 0) { %>
-<div class="">
+<div class="page">
   <div class="deliverables-section">
     <h2 class="deliverables-title">VIDEO DELIVERABLES</h2>
     <table class="deliverables-table">
@@ -2214,7 +2128,7 @@
 <% } %>
 
 <!-- NEW PAGE: PACKAGE DETAILS & NOTES -->
-<div class="">
+<div class="page">
   <div class="package-details-section">
     <div class="package-box">
       <div class="package-row">
@@ -2289,8 +2203,7 @@
     />
     -->
     <div class="brand-text" style="margin-top: 32px; text-align: center;">
-      <h1 style="font-size: 48px; color: #a10018; margin: 0;">JORUVST</h1>
-      <p style="font-size: 14px; color: #ffffff; margin: 4px 0 0; letter-spacing: 3px; text-transform: uppercase;">Photography & Films</p>
+      <h1 style="font-size: 48px; color: #a10018; margin: 0;">ACV Films</h1>
     </div>
 
 </div>
@@ -2314,12 +2227,12 @@
       <div class="signature-content">
         <h3>Crafting Memories That Last Forever</h3>
 
-        <!-- <p> -->
-<!-- Premium Wedding Photography & Cinematic Experience -->
+        <p>
+Premium Wedding Photography & Cinematic Experience
           <!-- Every WEDDING has a unique story and we believe every emotion deserves
           to be preserved beautifully for generations to cherish forever. -->
-        <!-- </p> -->
-         <!-- <div class="signature-line"></div> -->
+        </p>
+         <div class="signature-line"></div>
 
       </div>
 
@@ -2340,7 +2253,7 @@
     <div class="footer-bottom">
 
         <div class="footer-left">
-       <a href="mailto:joruvstfilms@gmail.com">joruvstfilms@gmail.com</a>
+       <a href="mailto:info@acvfilms.com">acvpraveen@gmail.com</a>
         </div>
 
         <!-- <div class="footer-center">
@@ -2348,7 +2261,7 @@
         </div> -->
 
         <div class="footer-right">
-         +91 8248710671
+         +91 9487505479
         </div>
 
     </div>

@@ -23,7 +23,15 @@ const PORT = process.env.PORT || 5000;
 
 
 async function renderQuotationHtml(req, payload) {
-  const templatePath = path.join(__dirname, './template/quotationtemplate.ejs');
+  const rawTemplateId = req.body?.templateId ?? payload?.templateId;
+  const normalizedTemplateId = String(rawTemplateId || '').trim().toLowerCase();
+
+  const templateFile =
+    normalizedTemplateId === '2' || normalizedTemplateId === 'template2'
+      ? 'quotationtemplate2.ejs'
+      : 'quotationtemplate.ejs';
+
+  const templatePath = path.join(__dirname, `./template/${templateFile}`);
   const baseUrl = `${req.protocol}://${req.get('host')}`;
 
   return ejs.renderFile(templatePath, {
