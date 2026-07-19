@@ -581,7 +581,7 @@
       border: 1px solid #ead3d7;
       border-radius: 10px;
       margin: 0 0 6px;
-      background: #fff;
+      background: #7f0014;
       break-inside: avoid;
       page-break-inside: avoid;
     }
@@ -798,7 +798,7 @@
     overflow:hidden;
     background:
       linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.45)),
-      url("<%= baseUrl %>/uploads/image2.2.jpeg")
+      url("<%= baseUrl %>/uploads/image2.1.jpeg")
       left/cover no-repeat;
   }
 
@@ -919,12 +919,8 @@
   }
 
   .services-design-page{
-    background:
-      linear-gradient(
-        to bottom right,
-        #fff,
-        rgba(161,0,24,0.03)
-      );
+    margin-top:20px;
+    background: #7f0014;
   }
 
   .services-page-header{
@@ -937,7 +933,7 @@
     font-size:12px;
     letter-spacing:4px;
     text-transform:uppercase;
-    color:var(--primary);
+    color:rgba(255,255,255,0.78);
     font-weight:700;
   }
 
@@ -946,12 +942,13 @@
     margin:20px 0;
     font-family:'Montserrat',sans-serif;
     font-weight:800;
+    color:#fff;
   }
 
   .services-page-header p{
     font-size:17px;
     line-height:1.9;
-    color:#666;
+    color:rgba(255,255,255,0.82);
   }
 
   .services-list{
@@ -993,16 +990,17 @@
 
   .service-content{
     padding:18px 22px;
-    background:#7f0014;
+    /* background:#7f0014; */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
 
   .service-content h3{
-    margin:0 0 6px;
-    font-size:12px;
+    margin:4px 0 6px;
+    font-size:24px;
     font-family:'Inter',sans-serif;
-    color:#d6d3d3;
+    color:var(--white);
+    font-weight:700;
     white-space:nowrap;
   }
 
@@ -1013,7 +1011,7 @@
 
   .service-content p{
     margin:0;
-    color:#666;
+    color:rgba(255,255,255,0.82);
     line-height:1.7;
     font-size:14px;
   }
