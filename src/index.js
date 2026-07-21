@@ -25,6 +25,8 @@ async function renderQuotationHtml(req, payload) {
   const templateFile =
     normalizedTemplateId === '2' || normalizedTemplateId === 'template2'
       ? 'quotationtemplate2.ejs'
+      : normalizedTemplateId === '3' || normalizedTemplateId === 'template3'
+      ? 'quotationtemplate3.ejs'
       : 'quotationtemplate.ejs';
 
   const templatePath = path.join(__dirname, `./template/${templateFile}`);
