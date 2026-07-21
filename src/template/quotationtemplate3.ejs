@@ -1,0 +1,2360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sales Quotation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    @font-face {
+  font-family: "Tamil MN";
+  src: url("./fonts/TamilMN.woff2") format("woff2"),
+       url("./fonts/TamilMN.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+  :root {
+    --primary: #a10018;
+    --primary-light: rgba(161, 0, 24, 0.12);
+    --white: #ffffff;
+    --text-light: rgba(255, 255, 255, 0.82);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 10px;
+    background: #fff;
+    font-family: "Inter", sans-serif;
+  }
+  .event-section {
+  margin-top: 22px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+}
+
+.event-badge {
+  width: 120px;
+  height: 80px;
+  background-color: white;
+  border: 4px solid #a10018;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20%;
+  margin: 0 auto 16px;
+}
+
+.event-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #17253a;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.event-number {
+  font-size: 44px;
+  font-weight: 700;
+  color: #1f2328;
+  margin-top: 4px;
+}
+
+.event-details-table,
+.services-table,
+.client-table,
+.deliverables-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1.5px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.event-details-table td,
+.services-table th,
+.services-table td,
+.client-table td,
+.deliverables-table th,
+.deliverables-table td {
+  border-bottom: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+  padding: 13px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Remove right border on last column */
+.event-details-table td:last-child,
+.services-table th:last-child,
+.services-table td:last-child,
+.client-table td:last-child,
+.deliverables-table th:last-child,
+.deliverables-table td:last-child {
+  border-right: none;
+}
+
+/* Remove bottom border on last row */
+.event-details-table tr:last-child td,
+.services-table tbody tr:last-child td,
+.client-table tr:last-child td,
+.deliverables-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Label / header cells */
+.event-details-table .label,
+.services-table th,
+.client-table td:first-child,
+.deliverables-table th {
+  background: #a10018;
+  color: white;
+  font-weight: 700;
+  width: 35%;
+  letter-spacing: 0.3px;
+}
+
+/* Value cells */
+.event-details-table .value,
+.services-table td,
+.client-table td:last-child,
+.deliverables-table td {
+  background: #fafafa;
+  color: #444;
+  font-weight: 500;
+}
+
+/* Alternating row shading for value rows */
+.services-table tbody tr:nth-child(even) td,
+.deliverables-table tbody tr:nth-child(even) td {
+  background: #f4f4f4;
+}
+
+.services-table th,
+.deliverables-table th {
+  text-align: left;
+}
+
+.client-table td:first-child {
+  width: 35%;
+}
+
+.services-table td:first-child,
+.services-table td:last-child {
+  width: 70px;
+  text-align: center;
+}
+  /* Allow services grid to break across pages */
+.services-list {
+  break-inside: auto;
+}
+
+.service-list-item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Let the services page grow naturally instead of being clipped */
+.services-design-page {
+  min-height: unset !important;
+  height: auto !important;
+  overflow: visible !important;
+  page-break-inside: auto !important;
+  break-inside: auto !important;
+  page-break-after: always;
+  break-after: page;
+}
+
+/* Each event block stays together but allows page breaks between events */
+.event-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  overflow: visible;
+}
+
+  .cover {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+      /* linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.72),
+        rgba(161, 0, 24, 0.65)
+      ), */
+      url("<%= baseUrl %>/uploads/image_mus1.jpeg")
+      center/cover no-repeat;
+    color: var(--white);
+    padding: 50px 70px;
+  }
+
+  .cover-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+  radial-gradient(
+    ellipse 120% 60% at top center,
+    rgba(161, 0, 24, 0.45) 0%,
+    rgba(161, 0, 24, 0.25) 35%,
+    transparent 80%
+  );
+ z-index: 1;
+  }
+
+  .cover-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-section {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .cover-brand-logo {
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 12px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .brand-text {
+    display: flex;
+    font-family: "Tamil MN", serif;
+    flex-direction: column;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+  }
+
+  .brand-text h2 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  .quotation-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(2px);
+    padding: 18px 26px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .quotation-small {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .quotation-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 4px;
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    min-height: 89vh;
+  }
+
+  .cover-content-box {
+    max-width: 760px;
+    margin-top: 300px;
+  }
+
+  .proposal-by {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 8px;
+  }
+
+  .proposal-by strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .quote-revision {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 120px;
+    height: 5px;
+    background: var(--primary);
+    border-radius: 999px;
+    margin: 30px 0;
+    box-shadow: 0 0 20px rgba(161, 0, 24, 0.5);
+  }
+
+  .cover-content-box h1 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 67px;
+    line-height: 1;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--white);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .cover-description {
+    margin-top: 28px;
+    font-size: 12px;
+    line-height: 1.2;
+    max-width: 680px;
+    color: var(--text-light);
+  }
+.package-details-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 22px;
+  margin-bottom: 0;
+  padding: 20px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+}
+
+.package-box,
+.validity-box {
+  width: 100%;
+  max-width: 700px;
+  border: 1.5px solid #a10018;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: unset;
+  box-shadow: 0 4px 14px rgba(161, 0, 24, 0.08);
+  text-align: center;
+}
+
+.package-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 10px;
+  max-width: 460px;
+  font-size: 13px;
+  color: #666;
+}
+
+.total-row {
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.validity-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.validity-title {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.validity-date {
+  font-size: 18px;
+  font-weight: 700;
+  color: #444;
+}
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  @media print {
+    html,
+    body {
+      width: 210mm;
+      margin: 0;
+      padding: 0;
+      background: #fff !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cover,
+    .page,
+    .final-thankyou-page {
+      width: 100%;
+      min-height: 297mm;
+      margin: 0;
+      padding: 12mm 10mm !important;
+      page-break-after: always;
+      break-after: page;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      overflow: hidden;
+    }
+
+    /* Services page must grow and allow page breaks */
+    .services-design-page {
+      min-height: unset !important;
+      height: auto !important;
+      overflow: visible !important;
+      page-break-inside: auto !important;
+      break-inside: auto !important;
+    }
+
+    .final-thankyou-page {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
+    }
+
+    /* Ensure no trailing blank page after last element */
+    body > *:last-child {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
+    }
+
+    .page:last-child {
+      page-break-after: avoid !important;
+      break-after: avoid !important;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .wedding-story-page {
+      padding-bottom: 0;
+    }
+
+    .wedding-story-page .story-hero,
+    .wedding-story-page .story-hero-image {
+      margin-bottom: 0;
+    }
+
+    .wedding-story-page .hero-content,
+    .wedding-story-page .hero-content * {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .page {
+      padding: 12mm 10mm !important;
+    }
+
+    .wedding-story-page {
+      min-height: 297mm !important;
+      height: 297mm !important;
+      overflow: hidden !important;
+    }
+
+    .wedding-story-page .story-header {
+      margin: 0 auto 12px;
+    }
+
+    .wedding-story-page .story-eyebrow {
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .wedding-story-page .story-header h2 {
+      font-size: 28px;
+      line-height: 1.8;
+    }
+
+    .wedding-story-page .story-header p {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .wedding-story-page .story-hero {
+      margin-top: 12px;
+    }
+
+    .wedding-story-page .story-hero-image {
+      height: 168mm;
+      min-height: unset;
+      border-radius: 22px;
+    }
+
+    .wedding-story-page .hero-content {
+      left: 24px;
+      bottom: 20px;
+      max-width: 560px;
+    }
+
+    .wedding-story-page .hero-content h3 {
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    .wedding-story-page .hero-content p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .services-design-page {
+      min-height: 297mm !important;
+      height: 297mm !important;
+      overflow: hidden !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .services-design-page .services-page-header {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    .services-design-page .services-mini {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .services-design-page .services-page-header h2 {
+      font-size: 42px;
+      margin: 8px 0;
+    }
+
+    .services-design-page .services-page-header p {
+      font-size: 13px;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .services-design-page .services-list {
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      column-count: 2;
+      column-gap: 10px;
+      overflow: visible;
+    }
+
+    .services-design-page .service-list-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      border: 1px solid #ead3d7;
+      border-radius: 10px;
+      margin: 0 0 6px;
+      background: #fff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .services-design-page .service-number {
+      font-size: 10px;
+      padding-top: 10px;
+    }
+
+    .services-design-page .service-content {
+      padding: 8px 10px;
+    }
+
+    .services-design-page .service-content h3 {
+      font-size: 10px;
+      margin: 0 0 2px;
+      line-height: 1.3;
+    }
+
+    .services-design-page .service-content p {
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .final-thankyou-page {
+      padding: 12mm 10mm !important;
+      min-height: 297mm !important;
+      height: 297mm !important;
+      overflow: hidden !important;
+    }
+
+    .final-top-text {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .final-logo-wrapper {
+      margin-top: 12px;
+      margin-bottom: 10px;
+    }
+
+    .final-logo-circle {
+      width: 126px;
+      height: 126px;
+      border-width: 5px;
+    }
+
+    .final-logo {
+      width: 84px;
+      height: 84px;
+    }
+
+    .text-logo {
+      width: 180px;
+      height: 78px;
+    }
+
+    .thankyou-mini {
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .thankyou-description {
+      margin: 12px auto 0;
+      max-width: 92%;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .signature-box {
+      margin-top: 14px;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .signature-line {
+      margin: 0 auto 12px;
+    }
+
+    .signature-content h3 {
+      font-size: 12px;
+    }
+
+    .signature-content p {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .partners-section {
+      margin-top: 16px;
+    }
+
+    .partners-heading {
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .partners-grid {
+      gap: 10px;
+    }
+
+    .partner-card {
+      border-radius: 14px;
+      padding: 10px 8px;
+    }
+
+    .partner-icon {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 8px;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+
+    .partner-name {
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .final-footer {
+      margin-top: 14px;
+    }
+
+    .footer-locations {
+      font-size: 11px;
+    }
+
+    .footer-divider {
+      margin: 10px 0;
+    }
+
+    .footer-bottom {
+      font-size: 10px;
+      gap: 8px;
+    }
+
+    .client-table {
+      width: 100%;
+      table-layout: fixed;
+    }
+  }
+
+  :root{
+    --primary:#a10018;
+    --primary-light:rgba(161,0,24,0.08);
+    --text:#1e1e1e;
+    --muted:#666;
+    --white:#fff;
+  }
+
+  /* =========================================
+     PAGE COMMON
+  ========================================= */
+
+  .page{
+    width:100%;
+    min-height:100vh;
+    padding:30px 60px 60px;
+    background:#fff;
+    position:relative;
+    overflow:hidden;
+    page-break-after:always;
+    font-family:'Inter',sans-serif;
+  }
+
+  /* =========================================
+     STORY PAGE
+  ========================================= */
+
+  .story-header{
+    text-align:center;
+    max-width:900px;
+    margin:0 auto 50px;
+  }
+
+  .story-eyebrow{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:700;
+    margin-bottom:18px;
+  }
+
+  .story-header h2{
+    font-size:30px;
+    margin:0;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    color:#111;
+  }
+
+  .story-header p{
+    margin-top:26px;
+    font-size:17px;
+    line-height:1.9;
+    color:#555;
+  }
+
+  .story-hero{
+    margin-top:24px;
+    margin-bottom:0;
+  }
+
+  .story-hero-image{
+    width:100%;
+    min-height:460px;
+    height:62vh;
+    border-radius:34px;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.45)),
+      url("<%= baseUrl %>/uploads/image_mus2.jpeg")
+      left/cover no-repeat;
+  }
+
+  .hero-image-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      135deg,
+      rgba(161,0,24,0.35),
+      transparent
+    );
+  }
+
+  .hero-content{
+    position:absolute;
+    left:60px;
+    bottom:60px;
+    max-width:650px;
+    color:#fff;
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+    padding:0;
+    z-index:2;
+  }
+
+  .hero-content * {
+    background:transparent !important;
+  }
+
+  .hero-mini-title{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.7);
+  }
+
+  .hero-content h3{
+    font-size:54px;
+    line-height:1.1;
+    margin:18px 0;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+  }
+
+  .hero-content p{
+    font-size:17px;
+    line-height:1.9;
+    color:rgba(255,255,255,0.88);
+  }
+
+  /* =========================================
+     RITUALS GRID
+  ========================================= */
+
+  .rituals-grid{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:28px;
+  }
+
+  .ritual-card{
+    padding:34px;
+    border-radius:28px;
+    background:#fff;
+    border:1px solid #eee;
+    box-shadow:0 12px 40px rgba(0,0,0,0.06);
+  }
+
+  .ritual-icon{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    margin-bottom:22px;
+  }
+
+  .ritual-card h4{
+    font-size:28px;
+    margin:0 0 14px;
+    font-family:'Inter',sans-serif;
+  }
+
+  .ritual-card p{
+    font-size:15px;
+    line-height:1.8;
+    color:#666;
+  }
+
+  .story-quote-box{
+    margin-top:70px;
+    padding:50px;
+    border-radius:30px;
+    background:var(--primary);
+    color:#fff;
+    position:relative;
+  }
+
+  .quote-line{
+    width:80px;
+    height:4px;
+    background:#fff;
+    border-radius:999px;
+    margin-bottom:24px;
+  }
+
+  .story-quote-box p{
+    font-size:28px;
+    line-height:1.6;
+    font-weight:500;
+    margin:0;
+  }
+
+  .services-design-page{
+    background:
+      linear-gradient(
+        to bottom right,
+        #fff,
+        rgba(161,0,24,0.03)
+      );
+  }
+
+  .services-page-header{
+    text-align:center;
+    max-width:820px;
+    margin:0 auto;
+  }
+
+  .services-mini{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:700;
+  }
+
+  .services-page-header h2{
+    font-size:60px;
+    margin:20px 0;
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+  }
+
+  .services-page-header p{
+    font-size:17px;
+    line-height:1.9;
+    color:#666;
+  }
+
+  .services-list{
+    margin:0;
+    padding:0;
+    list-style:none;
+      border:1.5px solid rgba(161, 0, 24, 0.28);
+    border-radius:18px;
+    overflow:hidden;
+      background:linear-gradient(135deg, rgba(161, 0, 24, 0.1), rgba(161, 0, 24, 0.03));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+  }
+
+  .service-list-item{
+    display:grid;
+    grid-template-columns:72px 1fr;
+    gap:0;
+      border-bottom:1px solid rgba(161, 0, 24, 0.2);
+      background:rgba(223, 220, 220, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+  }
+
+  .service-list-item:last-child{
+    border-bottom:none;
+  }
+
+  .service-number{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:22px;
+    background:var(--primary-light);
+    color:var(--primary);
+    font-weight:700;
+    font-size:16px;
+  }
+
+  .service-content{
+    padding:18px 22px;
+    background:#7f0014;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .service-content h3{
+    margin:0 0 6px;
+    font-size:12px;
+    font-family:'Inter',sans-serif;
+    color:#d6d3d3;
+    white-space:nowrap;
+  }
+
+  /* If the number block is removed, let content use the full row width */
+  .service-list-item > .service-content:only-child{
+    grid-column:1 / -1;
+  }
+
+  .service-content p{
+    margin:0;
+    color:#666;
+    line-height:1.7;
+    font-size:14px;
+  }
+
+  .services-highlight-box{
+    margin-top:70px;
+    background:var(--primary);
+    border-radius:34px;
+    padding:50px;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .highlight-left{
+    max-width:600px;
+  }
+
+  .highlight-left h3{
+    font-size:42px;
+    margin:0 0 20px;
+    font-family:'Inter',sans-serif;
+  }
+
+  .highlight-left p{
+    line-height:1.9;
+    color:rgba(255,255,255,0.85);
+  }
+
+  .highlight-right{
+    display:flex;
+    gap:30px;
+  }
+
+  .highlight-stat{
+    text-align:center;
+    min-width:140px;
+  }
+
+  .highlight-stat span{
+    display:block;
+    font-size:52px;
+    font-weight:800;
+    margin-bottom:10px;
+  }
+
+  /* =========================================
+     CLIENT SECTION
+  ========================================= */
+
+  .client-section{
+    margin-top:0;
+    padding:0;
+  }
+
+  /* =========================================
+     HEADER
+  ========================================= */
+
+  .client-header{
+    text-align:center;
+    margin-bottom:18px;
+  }
+
+  .client-mini-title{
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:700;
+  }
+
+  .client-header h2{
+    margin:6px 0 6px;
+    font-size:48px;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    color:#111;
+  }
+
+  .client-header p{
+    max-width:700px;
+    margin:0 auto;
+    color:#666;
+    line-height:1.8;
+    font-size:16px;
+  }
+
+  /* =========================================
+     CARD
+  ========================================= */
+
+  .client-details-card{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    border:1.5px solid #e8e8e8;
+    overflow:hidden;
+    box-shadow:0 6px 24px rgba(0,0,0,0.06);
+  }
+
+  /* =========================================
+     TABLE
+  ========================================= */
+
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  /* =========================================
+     MOBILE SAFE
+  ========================================= */
+
+  @media(max-width:768px){
+
+    .page{
+      padding:20px 16px 28px;
+    }
+
+    .story-header{
+      margin:0 auto 20px;
+    }
+
+    .story-hero{
+      margin-top:16px;
+      margin-bottom:0;
+    }
+
+    .story-hero-image{
+      min-height:300px;
+      height:56vh;
+      border-radius:20px;
+    }
+
+    .hero-content{
+      left:18px;
+      right:18px;
+      bottom:18px;
+      max-width:none;
+    }
+
+    .hero-content h3{
+      font-size:34px;
+      margin:10px 0;
+    }
+
+    .hero-content p{
+      font-size:14px;
+      line-height:1.6;
+      margin:0;
+    }
+
+    .service-list-item{
+      grid-template-columns:56px 1fr;
+    }
+
+    .service-number{
+      font-size:14px;
+      padding-top:18px;
+    }
+
+    .service-content{
+      padding:14px 14px;
+    }
+
+    .service-content h3{
+      font-size:12px;
+    }
+
+    .service-content p{
+      font-size:10px;
+      line-height:1.55;
+    }
+
+    .client-header h2{
+      font-size:34px;
+    }
+
+    .client-table td{
+      padding:13px 18px;
+      font-size:14px;
+    }
+
+  }
+
+  .logo-stack{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:10px;
+  }
+
+  .final-logo-circle{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:
+      linear-gradient(
+        135deg,
+        #a10018,
+        #760012
+      );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:6px solid rgba(255,255,255,0.85);
+
+    box-shadow:
+      0 20px 60px rgba(161,0,24,0.22);
+
+    overflow:hidden;
+  }
+
+  .final-logo{
+    width:100px;
+    height:100px;
+    object-fit:contain;
+  }
+
+  .text-logo{
+    width:250px;
+    height:110px;
+    object-fit:contain;
+    display:block;
+    margin:0;
+    padding:0;
+  }
+  .final-thankyou-page{
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        rgba(161,0,24,0.03)
+      );
+    min-height:100vh;
+    padding:70px 70px 50px;
+    font-family:'Inter',sans-serif;
+  }
+
+  /* =========================================
+     BACKGROUND DESIGN
+  ========================================= */
+
+  .thankyou-bg-circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(161,0,24,0.05);
+    z-index:0;
+  }
+
+  .thankyou-bg-circle.one{
+    width:500px;
+    height:500px;
+    top:-180px;
+    right:-120px;
+  }
+
+  .thankyou-bg-circle.two{
+    width:320px;
+    height:320px;
+    bottom:-100px;
+    left:-100px;
+  }
+
+  /* =========================================
+     TOP TEXT
+  ========================================= */
+
+  .final-top-text{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    font-size:12px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:700;
+  }
+
+  /* =========================================
+     LOGO
+  ========================================= */
+
+  .final-logo-wrapper{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    margin-top:35px;
+    margin-bottom:25px;
+  }
+
+  .final-logo-circle{
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:
+      linear-gradient(
+        135deg,
+        #a10018,
+        #760012
+      );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    border:8px solid rgba(255,255,255,0.8);
+
+    box-shadow:
+      0 25px 70px rgba(161,0,24,0.25),
+      inset 0 0 35px rgba(255,255,255,0.08);
+
+    overflow:hidden;
+  }
+
+  .final-logo{
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,0.25));
+  }
+
+  .logo-glow{
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background:rgba(161,0,24,0.12);
+    filter:blur(25px);
+    z-index:-1;
+  }
+
+  /* =========================================
+     MAIN CONTENT
+  ========================================= */
+
+  .final-center-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:920px;
+    margin:0 auto;
+  }
+
+  .thankyou-mini{
+    font-size:14px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:#666;
+    margin-bottom:22px;
+  }
+
+  .final-center-content h1{
+    margin:0;
+    font-size:92px;
+    line-height:1;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    letter-spacing:-3px;
+    color:#111;
+  }
+
+  .thankyou-description{
+    margin:38px auto 0;
+    max-width:760px;
+    font-size:19px;
+    line-height:2;
+    color:#555;
+  }
+
+  .thankyou-divider{
+    width:120px;
+    height:5px;
+    background:var(--primary);
+    border-radius:999px;
+    margin:45px auto;
+  }
+
+  /* =========================================
+     SIGNATURE BOX
+  ========================================= */
+
+  .signature-box{
+    margin-top:25px;
+    background:#fff;
+    border-radius:32px;
+    padding:48px;
+    border:1px solid rgba(0,0,0,0.06);
+
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.06);
+  }
+
+  .signature-line{
+    width:80px;
+    height:4px;
+    background:var(--primary);
+    border-radius:999px;
+    margin:0 auto 24px;
+  }
+
+  .signature-content h3{
+    margin:0;
+    font-size:20px;
+    font-family:'Montserrat',sans-serif;
+    color:#111;
+  }
+
+  .signature-content p{
+    margin-top:18px;
+    font-size:16px;
+    line-height:1.9;
+    color:#666;
+  }
+
+  /* =========================================
+     PARTNERS
+  ========================================= */
+
+  .partners-section{
+    position:relative;
+    z-index:2;
+    margin-top:70px;
+  }
+
+  .partners-heading{
+    text-align:center;
+    font-size:14px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:var(--primary);
+    font-weight:700;
+    margin-bottom:35px;
+  }
+
+  .partners-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:22px;
+  }
+
+  .partner-card{
+    background:#fff;
+    border-radius:26px;
+    padding:30px 18px;
+    text-align:center;
+    border:1px solid rgba(0,0,0,0.06);
+
+    box-shadow:
+      0 14px 40px rgba(0,0,0,0.05);
+  }
+
+  .partner-icon{
+    width:72px;
+    height:72px;
+    margin:0 auto 18px;
+    border-radius:20px;
+    background:var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+    font-size:24px;
+    font-weight:700;
+    font-family:'Inter',sans-serif;
+  }
+
+  .partner-name{
+    font-size:15px;
+    line-height:1.6;
+    color:#333;
+    font-weight:500;
+  }
+
+  .final-footer{
+    position:relative;
+    z-index:2;
+    margin-top:70px;
+  }
+
+  .footer-locations{
+    text-align:center;
+    font-size:15px;
+    color:#666;
+    letter-spacing:1px;
+  }
+
+  .footer-divider{
+    width:100%;
+    height:1px;
+    background:rgba(0,0,0,0.08);
+    margin:28px 0;
+  }
+
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+    font-size:14px;
+    color:#777;
+  }
+
+  .footer-center{
+    color:var(--primary);
+    font-weight:600;
+  }
+   .deliverables-section {
+  margin-top: 22px;
+  margin-bottom: 0;
+  padding: 20px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+}
+
+.deliverables-title {
+  text-align: center;
+  color: #a10018;
+  font-size: 13px;
+  letter-spacing: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.quotation-note {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.7;
+  text-align: left;
+  margin: 22px 0 0;
+  padding: 20px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+  font-style: normal;
+}
+
+.quotation-note-title {
+  color: #a10018;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.quotation-note-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.quotation-note-list li {
+  margin-bottom: 6px;
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center horizontally */
+  text-align: center;
+}
+
+.brand-text h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #a30116;
+}
+
+.brand-text p {
+  margin: 4px 0 0;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+@media (max-width: 768px) {
+
+  body {
+    margin: 0;
+  }
+
+  .cover {
+    padding: 20px;
+    min-height: auto;
+  }
+
+  .cover-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .quotation-badge {
+    align-items: center;
+  }
+
+  .cover-content {
+    min-height: 280px;
+    padding: 40px 0;
+  }
+
+  .cover-content-box h1 {
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .cover-description {
+    font-size: 12px;
+    line-height: 1.5;
+    font-style:italic
+  }
+
+  .brand-text h2 {
+    font-size: 24px;
+  }
+
+  .page {
+    padding: 20px 15px;
+  }
+
+  .story-header h2,
+  .services-page-header h2,
+  .client-header h2 {
+    font-size: 28px;
+  }
+
+  .story-header p,
+  .services-page-header p,
+  .client-header p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .hero-content h3 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 13px;
+  }
+
+  .services-highlight-box {
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px;
+    text-align: center;
+  }
+
+  .highlight-right {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .highlight-stat {
+    min-width: 100px;
+  }
+
+  .highlight-stat span {
+    font-size: 32px;
+  }
+
+  /* Tables */
+  .client-table,
+  .event-details-table,
+  .services-table,
+  .deliverables-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    white-space: normal;
+  }
+
+  .event-details-table td,
+  .services-table td,
+  .services-table th,
+  .deliverables-table td,
+  .deliverables-table th,
+  .client-table td {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    vertical-align: top;
+  }
+
+  .event-details-table td.label,
+  .client-table td:first-child {
+    width: 36%;
+  }
+
+  .services-table th:nth-child(1),
+  .services-table td:nth-child(1) {
+    width: 12%;
+    text-align: center;
+  }
+
+  .services-table th:nth-child(2),
+  .services-table td:nth-child(2) {
+    width: 58%;
+  }
+
+  .services-table th:nth-child(3),
+  .services-table td:nth-child(3) {
+    width: 30%;
+    text-align: center;
+  }
+
+  .deliverables-table th:nth-child(1),
+  .deliverables-table td:nth-child(1) {
+    width: 46%;
+  }
+
+  .deliverables-table th:nth-child(2),
+  .deliverables-table td:nth-child(2) {
+    width: 34%;
+  }
+
+  .deliverables-table th:nth-child(3),
+  .deliverables-table td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+  }
+
+  .event-badge {
+    width: 100px;
+    height: 60px;
+  }
+
+  .event-number {
+    font-size: 30px;
+  }
+
+  .package-details-section {
+    padding: 15px;
+  }
+
+  .package-box,
+  .validity-box {
+    padding: 15px;
+  }
+
+  .package-row {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .final-center-content h1 {
+    font-size: 48px;
+    line-height: 1.1;
+  }
+
+  .thankyou-description {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .signature-box {
+    padding: 25px;
+  }
+
+  .signature-content h3 {
+    font-size: 12px;
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .final-thankyou-page {
+    padding: 30px 20px;
+  }
+
+  .final-logo-circle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .final-logo {
+    width: 80px;
+    height: 80px;
+  }
+}
+  </style>
+</head>
+<body>
+<div class="cover">
+  <div class="cover-overlay"></div>
+
+  <!-- Header -->
+  <div class="cover-header">
+    <div class="brand-section">
+        <!--
+        <img
+          class="cover-brand-logo"
+          src="<%= baseUrl %>/uploads/White.png"
+          alt="Studio Logo"
+        />
+
+        <div class="brand-text">
+          <h2>YOURS BIGDAY STUDIOS</h2>
+        </div>
+        -->
+        <div class="brand-text">
+          <h2>JORUVST</h2>
+          <p>Photography & Films</p>
+        </div>
+    </div>
+
+    <div class="quotation-badge">
+      <span class="quotation-title">Sales Quotation</span>
+    </div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="cover-content">
+    <div class="cover-content-box">
+
+      <h1>
+        Your Beautiful <br />
+        Forever Begins Here
+      </h1>
+
+     
+    </div>
+  </div>
+</div>
+  <!-- ═══════════════════════════════════
+       INTRO SECTION
+  ════════════════════════════════════ -->
+ <!-- ═══════════════════════════════════
+     PAGE 2 — WEDDING STORY / EXPERIENCE
+════════════════════════════════════ -->
+<div style="margin-top: 15px;">
+
+  <div class="story-header">
+    <div class="story-eyebrow"> Sacred Moments</div>
+    <h2>
+     United by Love
+    </h2>
+
+    <p>
+      <!-- A wedding is not just a ceremony — it is an emotional
+      journey filled with sacred rituals, vibrant celebrations, blessings,
+      family traditions, and unforgettable moments that deserve to be captured
+      beautifully for generations to cherish. -->
+    </p>
+  </div>
+
+  <!-- HERO SECTION -->
+  <div class="story-hero">
+
+    <div class="story-hero-image">
+      <div class="hero-image-overlay"></div>
+
+      <div class="hero-content">
+        <!-- <span class="hero-mini-title">Sacred Moments</span> -->
+
+        <!-- <h3>
+          From The First Blessing <br>
+          To The Final Ritual
+        </h3> -->
+
+        <!-- <p>
+          Every smile, every ritual, every emotional glance and every sacred
+          promise becomes a timeless memory through our cinematic storytelling
+          and artistic wedding photography experience.
+        </p> -->
+      </div>
+    </div>
+
+  </div>
+  <!-- QUOTE BLOCK -->
+
+</div>
+
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — SERVICES PAGE
+════════════════════════════════════ -->
+<div class="page services-design-page">
+
+  <div class="services-page-header">
+    <span class="services-mini">Premium Wedding Coverage</span>
+
+    <h2>Our Signature Services</h2>
+
+    <!-- <p>
+      Curated cinematic photography and wedding filmmaking services designed to
+      transform your once-in-a-lifetime moments into timeless visual memories.
+    </p> -->
+  </div>
+
+  <!-- SERVICES LIST -->
+  <ol class="services-list">
+    <li class="service-list-item">
+      <!-- <div class="service-number">01</div> -->
+      <div class="service-content">
+        <h3>Candid Photography</h3>
+        <!-- <p>Emotion-driven storytelling through natural and timeless candid wedding frames.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">02</div> -->
+      <div class="service-content">
+        <h3>Cinematic Videography</h3>
+        <!-- <p>Premium wedding films crafted with cinematic visuals, music and emotional storytelling.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">03</div> -->
+      <div class="service-content">
+        <h3>Traditional Coverage</h3>
+        <!-- <p>Complete traditional photography and videography coverage for rituals and ceremonies.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">04</div> -->
+      <div class="service-content">
+        <h3>Drone / Helicam</h3>
+        <!-- <p>Stunning aerial wedding visuals and cinematic venue coverage with premium drone shots.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">05</div> -->
+      <div class="service-content">
+        <h3>Live Streaming</h3>
+        <!-- <p>Seamless high-quality wedding live streaming experience for friends and family worldwide.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">06</div> -->
+      <div class="service-content">
+        <h3>Wedding Film</h3>
+        <!-- <p>Emotional cinematic wedding edits crafted with storytelling, music and artistic visuals.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">07</div> --> 
+      <div class="service-content">
+        <h3>Pre-Wedding Shoot</h3>
+        <!-- <p>Romantic cinematic pre-wedding storytelling with creative concepts, beautiful locations and elegant couple portraits.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">08</div> -->
+      <div class="service-content">
+        <h3>Post-Wedding Shoot</h3>
+        <!-- <p>Timeless post-wedding photography sessions crafted with cinematic visuals, emotional storytelling and artistic direction.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">09</div> -->
+      <div class="service-content">
+        <h3>Indoor Studio Shoot</h3>
+        <!-- <p>Premium indoor photography sessions with professional lighting, elegant backdrops and creative portrait styling.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">10</div> -->
+      <div class="service-content">
+        <h3>Outdoor Shoot</h3>
+        <!-- <p>Natural outdoor photography experiences capturing candid emotions, beautiful landscapes and authentic moments.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">11</div> -->
+      <div class="service-content">
+        <h3>Toddler Photography</h3>
+        <!-- <p>Adorable toddler photography sessions filled with playful moments, joyful expressions and heartwarming memories.</p> -->
+      </div>
+    </li>
+    <li class="service-list-item">
+      <!-- <div class="service-number">12</div> -->
+      <div class="service-content">
+        <h3>Maternity Shoot</h3>
+        <!-- <p>Elegant maternity portraits celebrating motherhood with artistic styling, emotional storytelling and timeless elegance.</p> -->
+      </div>
+    </li>
+  </ol>
+
+</div>
+<!-- ═══════════════════════════════════
+     CLIENT DETAILS SECTION
+════════════════════════════════════ -->
+<div class=" client-section">
+
+  <div class="client-header" style="margin-top: 10px;">
+    <h2>
+      Event Details
+    </h2>
+   
+<p>
+      Personalized quotation details prepared exclusively for your wedding
+      celebration and memorable events.
+    </p>
+     <span class="client-mini-title">Client Information</span>
+
+    
+  </div>
+
+  <div class="client-details-card">
+
+    <table class="client-table">
+      <tbody>
+ <tr>
+          <td>Client Name</td>
+          <td>
+            <%= data.customerName || "-" %>
+          </td>
+        </tr>
+    
+        <tr>
+          <td>Bride & Groom Name</td>
+          <td>
+            <%= data.brideName || "-" %> & <%= data.groomName || "-" %>
+          </td>
+        </tr>
+
+       
+
+        <tr>
+          <td>Event Type</td>
+          <td>
+            <%= data.eventType || "-" %>
+          </td>
+        </tr>
+        <tr>
+          <td>Event Date</td>
+          <td>
+            <%= (() => { const raw = data.eventDate; if (!raw) return "-"; const parsed = new Date(raw); if (Number.isNaN(parsed.getTime())) return raw; return parsed.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }); })() %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Event Location</td>
+          <td>
+            <%= data.location || "-" %>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+<% if (data.events && data.events.length) { %>
+  <% data.events.forEach((event, index) => { %>
+
+    <div class="event-section">
+
+      <!-- Event Number Box -->
+      <div class="event-badge">
+        <span class="event-label">EVENT - <%= index + 1 %></span>
+        <!-- <span class="event-number"><%= index + 1 %></span> -->
+      </div>
+
+      <!-- Event Details Table -->
+      <table class="event-details-table">
+        <colgroup>
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+        </colgroup>
+        <tbody>
+
+          <tr>
+            <td class="label">Event Name</td>
+            <td class="value" colspan="3"><%= event.eventName || "-" %></td>
+          </tr>
+          <tr>
+            <td class="label">Date</td>
+            <td class="value" colspan="3"><%= (() => { const raw = event.date; if (!raw) return "-"; const parsed = new Date(raw); if (Number.isNaN(parsed.getTime())) return raw; return parsed.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }); })() %></td>
+          </tr>
+          <!-- <tr>
+            <td class="label">Venue Name</td>
+            <td class="value" colspan="3"><%= event.venueName || "-" %></td>
+          </tr> -->
+          <tr>
+            <td class="label">Venue</td>
+            <td class="value" colspan="3"><%= event.venueLocation || "-" %></td>
+          </tr>
+          <tr>
+            <td class="label">Crowd Strength</td>
+            <td class="value" colspan="3"><%= event.crowdStrength || "-" %></td>
+          </tr>
+          <tr>
+            <td class="label">Start Time</td>
+            <td class="value"><%= event.startTime || "-" %></td>
+            <td class="label">End Time</td>
+            <td class="value"><%= event.endTime || "-" %></td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!-- Services Table -->
+      <table class="services-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Services</th>
+            <th>Cameras</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if (event.services && event.services.length) { %>
+            <% event.services.forEach((service, sIndex) => { %>
+              <tr>
+                <td><%= sIndex + 1 %></td>
+                <td><%= service.service || "-" %></td>
+                <td><%= service.cameras || "-" %></td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+
+    </div>
+
+  <% }) %>
+<% } %>
+<% if (data.photoDeliverables && data.photoDeliverables.length > 0) { %>
+<div class="">
+  <div class="deliverables-section">
+    <h2 class="deliverables-title">PHOTO DELIVERABLES</h2>
+    <table class="deliverables-table">
+      <thead>
+        <tr>
+          <th>Photo Deliverables</th>
+          <th>Event Name</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.photoDeliverables.forEach((item) => { %>
+          <tr>
+            <td><%= item.name || "-" %></td>
+            <td><%= item.eventName || "-" %></td>
+            <td><%= item.qty || "-" %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% } %>
+
+<% if (data.videoDeliverables && data.videoDeliverables.length > 0) { %>
+<div class="">
+  <div class="deliverables-section">
+    <h2 class="deliverables-title">VIDEO DELIVERABLES</h2>
+    <table class="deliverables-table">
+      <thead>
+        <tr>
+          <th>Video Deliverables</th>
+          <th>Event Name</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.videoDeliverables.forEach((item) => { %>
+          <tr>
+            <td><%= item.name || "-" %></td>
+            <td><%= item.eventName || "-" %></td>
+            <td><%= item.qty || "-" %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% } %>
+
+<!-- NEW PAGE: PACKAGE DETAILS & NOTES -->
+<div class="">
+  <div class="package-details-section">
+    <div class="package-box">
+      <div class="package-row">
+        <span>TOTAL PACKAGE</span>
+        <span><%= data.totalPackage || 0 %> INR</span>
+      </div>
+      <div class="package-row">
+        <span>DISCOUNT</span>
+        <span><%= data.discount || 0 %> INR</span>
+      </div>
+      <div class="package-row total-row">
+        <span>PACKAGE VALUE</span>
+        <span><%= data.total || 0 %> INR</span>
+      </div>
+    </div>
+    <div class="validity-box">
+      <div class="validity-title">
+        This Quote Is Valid Until
+      </div>
+      <div class="validity-date">
+        <%= data.quoteValidUntil || "--" %>
+      </div>
+    </div>
+  </div>
+  <div class="quotation-note">
+    <div class="quotation-note-title">Note:</div>
+    <ul class="quotation-note-list">
+      <li>50% of the total package is to be paid as advance</li>
+      <li>The quotations given are for the specified events</li>
+      <li>Incase of any additional events, the coverage cost may differ</li>
+      <li>Travel, food and accomodation should be taken care by the client</li>
+    </ul>
+  </div>
+</div>
+
+
+
+  <!-- ═══════════════════════════════════
+       THANK YOU / FOOTERcd 
+  ════════════════════════════════════ -->
+<div class="final-thankyou-page">
+
+  <!-- BACKGROUND DESIGN -->
+  <div class="thankyou-bg-circle one"></div>
+  <div class="thankyou-bg-circle two"></div>
+
+  <!-- TOP SMALL TEXT -->
+  <!-- <div class="final-top-text">
+    Premium Wedding Photography & Cinematic Experience
+  </div> -->
+
+  <!-- LOGO -->
+  <div class="final-logo-wrapper">
+
+    <div class="logo-glow"></div>
+
+ <div class="logo-stack">
+
+    <!--
+    <div class="final-logo-circle">
+      <img
+        src="<%= baseUrl %>/uploads/white.png"
+        alt="Yours Bigday Studios"
+        class="final-logo"
+      />
+    </div>
+
+    <img
+      src="<%= baseUrl %>/uploads/logo-text.png"
+      alt="Yours Bigday Studios"
+      class="text-logo"
+    />
+    -->
+    <div class="brand-text" style="margin-top: 32px; text-align: center;">
+      <h1 style="font-size: 48px; color: #a10018; margin: 0;">JORUVST</h1>
+      <p style="font-size: 14px; color: #ffffff; margin: 4px 0 0; letter-spacing: 3px; text-transform: uppercase;">Photography & Films</p>
+    </div>
+
+</div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="final-center-content">
+ <!-- <div class="thankyou-mini">
+      THANK YOU FOR CHOOSING
+    </div> -->
+    <p class="thankyou-description">
+      Thank you for considering us to be a part of your beautiful journey.
+      We are honoured to capture your emotions, traditions, celebrations and
+      timeless memories with elegance, creativity and cinematic storytelling.
+    </p>
+
+    
+
+    <div class="signature-box">
+
+      <div class="signature-content">
+        <h3>Crafting Memories That Last Forever</h3>
+
+        <!-- <p> -->
+<!-- Premium Wedding Photography & Cinematic Experience -->
+          <!-- Every WEDDING has a unique story and we believe every emotion deserves
+          to be preserved beautifully for generations to cherish forever. -->
+        <!-- </p> -->
+         <!-- <div class="signature-line"></div> -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="final-footer">
+
+    <div class="footer-locations">
+      Thoothukudi • Coimbatore • Tirunelveli
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+
+        <div class="footer-left">
+       <a href="mailto:joruvstfilms@gmail.com">joruvstfilms@gmail.com</a>
+        </div>
+
+        <!-- <div class="footer-center">
+          www.acvfilms.com
+        </div> -->
+
+        <div class="footer-right">
+         +91 8248710671
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
